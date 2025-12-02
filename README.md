@@ -18,6 +18,11 @@ npm start
 ```
 The server exposes all tools defined in `server.js`. Update input schemas as you refine request payloads.
 
+To expose HTTP locally (for tunneling to ChatGPT, etc.):
+```bash
+SYMPHONY_API_KEY=your_real_symphony_key_here node server-http.js
+```
+
 ## Docker (optional)
 ```bash
 docker build -t symphony-mcp .
@@ -35,6 +40,26 @@ mcpServers:
     env:
       SYMPHONY_API_KEY: "${SYMPHONY_API_KEY}"
 ```
+
+## GitHub prep
+- Sensitive: `.env` is already ignored; keep secrets out of Git.
+- Cleanup: `.dockerignore` trims build context; `.gitignore` drops node_modules and logs.
+- To publish:  
+  ```bash
+  git add .
+  git commit -m "Add Symphony MCP server and Fly.io config"
+  git push origin main   # adjust branch
+  ```
+
+## Deploy to Fly.io
+`fly.toml` is included. Steps (requires `flyctl`):
+```bash
+fly auth login
+# Optional: rename app in fly.toml (app = "symphony-mcp") to your unique name
+fly secrets set SYMPHONY_API_KEY=your_real_symphony_key_here
+fly deploy
+```
+The app serves MCP Streamable HTTP on port 3000 (`[http_service].internal_port=3000`). Access it at the Fly hostname returned after deploy (e.g., https://<app>.fly.dev).
 
 ## Tools exposed
 - Generic `symphonyRequest`
