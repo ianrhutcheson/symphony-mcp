@@ -4,7 +4,7 @@
   "description": "Model Context Protocol server exposing Symphony API endpoints as tools",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server-http.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
