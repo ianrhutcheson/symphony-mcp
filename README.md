@@ -63,13 +63,17 @@ mcpServers:
 
 ## Deploy to Fly.io
 `fly.toml` is included and pins Fly's Node builtin builder (no Docker needed). Steps (requires `flyctl`):
-`fly.toml` is included and expects Fly's default Node builder (no Docker needed). Steps (requires `flyctl`):
 ```bash
 fly auth login
 # Optional: rename app in fly.toml (app = "symphony-mcp") to your unique name
 fly secrets set SYMPHONY_API_KEY=your_real_symphony_key_here
-fly deploy --config fly.toml
+FLY_REMOTE_BUILDER_MACHINE_SIZE=shared-cpu-1x fly deploy --config fly.toml
 ```
+The `FLY_REMOTE_BUILDER_MACHINE_SIZE` cap keeps the Fly depot/remote builder under org CPU limits. If you prefer not to set the variable globally, run via the helper script:
+```bash
+./scripts/deploy-with-builder-cap.sh --build-only --push
+```
+
 The app serves MCP Streamable HTTP on port 3000 (`[http_service].internal_port=3000`). Access it at the Fly hostname returned after deploy (e.g., https://<app>.fly.dev). If you prefer a custom image build, re-add a `[build]` section pointing at `Dockerfile` and deploy again.
 
 ## Tools exposed
