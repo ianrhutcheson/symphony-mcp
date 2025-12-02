@@ -1,0 +1,7 @@
+{
+  "name": "symphony-mcp",
+  "type": "NodeJS",
+  "build": {
+    "builtin": "node"
+  }
+}
