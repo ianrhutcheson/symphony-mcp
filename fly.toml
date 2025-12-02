@@ -2,9 +2,6 @@
 app = "symphony-mcp"
 primary_region = "iad"
 
-[build]
-  dockerfile = "Dockerfile"
-
 [env]
   PORT = "3000"
 

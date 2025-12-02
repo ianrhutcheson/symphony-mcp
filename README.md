@@ -52,14 +52,14 @@ mcpServers:
   ```
 
 ## Deploy to Fly.io
-`fly.toml` is included. Steps (requires `flyctl`):
+`fly.toml` is included and expects Fly's default Node builder (no Docker needed). Steps (requires `flyctl`):
 ```bash
 fly auth login
 # Optional: rename app in fly.toml (app = "symphony-mcp") to your unique name
 fly secrets set SYMPHONY_API_KEY=your_real_symphony_key_here
-fly deploy
+fly deploy --config fly.toml
 ```
-The app serves MCP Streamable HTTP on port 3000 (`[http_service].internal_port=3000`). Access it at the Fly hostname returned after deploy (e.g., https://<app>.fly.dev).
+The app serves MCP Streamable HTTP on port 3000 (`[http_service].internal_port=3000`). Access it at the Fly hostname returned after deploy (e.g., https://<app>.fly.dev). If you prefer a custom image build, re-add a `[build]` section pointing at `Dockerfile` and deploy again.
 
 ## Tools exposed
 - Generic `symphonyRequest`
