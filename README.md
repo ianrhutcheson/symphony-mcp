@@ -63,6 +63,7 @@ mcpServers:
 
 ## Deploy to Fly.io
 `fly.toml` is included and pins Fly's Node builtin builder (no Docker needed). Steps (requires `flyctl`):
+`fly.toml` is included and expects Fly's default Node builder (no Docker needed). Steps (requires `flyctl`):
 ```bash
 fly auth login
 # Optional: rename app in fly.toml (app = "symphony-mcp") to your unique name
