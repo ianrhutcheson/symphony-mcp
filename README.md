@@ -62,7 +62,8 @@ mcpServers:
   ```
 
 ## Deploy to Fly.io
-`fly.toml` is included and pins Fly's Node builtin builder (no Docker needed). Steps (requires `flyctl`):
+`fly.toml` is included and pins Fly's Node builtin builder (no Docker needed). A `.fly/launch.json` manifest is also committed so
+`flyctl launch` recognizes this as a NodeJS app instead of generating a mismatched generic manifest. Steps (requires `flyctl`):
 ```bash
 fly auth login
 # Optional: rename app in fly.toml (app = "symphony-mcp") to your unique name
